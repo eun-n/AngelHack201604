@@ -6,10 +6,15 @@
   <style>
     body {
       background-color: skyblue;
+      margin-left: 10px;
+    }
+    .input-group {
+      margin: 20px;
     }
   </style>
 </head>
 <body> 
+<h1>Post a problem or enter the chat to help someone out!</h1>
     </div>
     <div class="col-lg-12">
       <div class="input-group">
@@ -26,12 +31,11 @@
         </span>
       </div>
     </div>
-    <br>
     <h2>Posts</h2>
     <ul>
     <% problem.forEach(function(problem) { %>
     <li><h3><%=problem.postTitle%> (<%=problem.category%>) </h3> 
-    <img src="<%=problem.picture%>"></li>
+    <img src="<%=problem.picture%>" style="max-height: 200px; max-width: 200px;" ></li>
     <% }); %>
   </ul>
     <script src="problem.js"></script>
