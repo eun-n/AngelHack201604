@@ -1,19 +1,37 @@
-var express = require('express');
-var ejs = require('ejs');
-var bodyParser = require('body-parser');
-var ejsLayouts = require('express-ejs-layouts');
-var url = require('url');
-
-var app = express();
-app.set('view engine', 'ejs');
-//app.use(express.static(__dirname + '/views'));
-app.use(ejsLayouts);
-
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-  res.render('index', {name: "Stuff and stuff"});
+  res.sendfile('views/index.html');
 });
 
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
 
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+});
 
-app.listen(3000);
+io.emit('some event', { for: 'everyone' });
+
+io.on('connection', function(socket){
+  socket.broadcast.emit('hi');
+});
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
