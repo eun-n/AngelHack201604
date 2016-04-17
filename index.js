@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/chat', function(req, res){
-  res.sendfile('views/chat.html');
+  res.sendFile('views/chat.html');
 });
 
 io.on('connection', function(socket){
