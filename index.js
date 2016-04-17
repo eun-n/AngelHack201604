@@ -2,14 +2,19 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var ejs = require('ejs');
+var request = require("request");
 var bodyParser = require('body-parser');
-// var ejsLayouts = require('express-ejs-layouts');
+var db = require("./models");
+
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: false}));
 // app.use(ejsLayouts);
 
-app.get('/', function(req, res){
-  res.render('index');
+app.get('/', function(req, res) {
+  db.problem.findAll().then(function(problem) {
+    res.render('index', {problem: problem});
+  });
 });
 
 app.get('/chat', function(req, res){
@@ -38,6 +43,14 @@ io.on('connection', function(socket){
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
+  });
+});
+
+app.post('/', function(req, res) {
+  //good spot to filter the data here
+  console.log(req.body);
+  db.problem.create(req.body).then(function() {
+    res.redirect('/');
   });
 });
 
