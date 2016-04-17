@@ -1,9 +1,19 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var ejs = require('ejs');
+var bodyParser = require('body-parser');
+// var ejsLayouts = require('express-ejs-layouts');
+
+app.set('view engine', 'ejs');
+// app.use(ejsLayouts);
 
 app.get('/', function(req, res){
-  res.sendfile('views/index.html');
+  res.render('index');
+});
+
+app.get('/chat', function(req, res){
+  res.sendfile('views/chat.html');
 });
 
 io.on('connection', function(socket){
