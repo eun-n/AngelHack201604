@@ -26,9 +26,12 @@
         </span>
       </div>
     </div>
+    <br>
+    <h2>Posts</h2>
     <ul>
     <% problem.forEach(function(problem) { %>
-    <li><h3><%= problem.postTitle %> (<%=problem.category%>) </h3></li>
+    <li><h3><%= problem.postTitle %> (<%=problem.category%>) </h3> 
+    <img src="<%=problem.picture%>"></li>
     <% }); %>
   </ul>
     <script src="problem.js"></script>
