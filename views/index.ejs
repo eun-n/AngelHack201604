@@ -7,9 +7,19 @@
     body {
       background-color: skyblue;
       margin-left: 10px;
+      font-family: helvetica;
+      font-weight: bold;
     }
     .input-group {
       margin: 20px;
+    }
+    .posts {
+      border-radius: 10px;
+      border-style: solid;
+      border-color: black;
+      background-color:white;
+      padding-bottom: 5px;
+      max-width: 500px;
     }
   </style>
 </head>
@@ -32,12 +42,14 @@
       </div>
     </div>
     <h2>Posts</h2>
-    <ul>
-    <% problem.forEach(function(problem) { %>
-    <li><h3><%=problem.postTitle%> (<%=problem.category%>) </h3> 
-    <img src="<%=problem.picture%>" style="max-height: 200px; max-width: 200px;" ></li>
-    <% }); %>
-  </ul>
+    <div class="posts">
+      <ul>
+      <% problem.forEach(function(problem) { %>
+      <li><h3><%=problem.postTitle%> (<%=problem.category%>) </h3> 
+      <img src="<%=problem.picture%>" style="max-height: 400px; max-width: 400px;" ></li>
+      <% }); %>
+    </ul>
+    </div>
     <script src="problem.js"></script>
     <script src="index.js"></script>
 </body>
